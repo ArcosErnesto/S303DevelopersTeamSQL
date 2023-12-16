@@ -53,11 +53,11 @@ CREATE INDEX `fk_Ticket_FloristShop_idx` ON `florist`.`Ticket` (`FloristShop_id`
 -- Table `florist`.`Product`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `florist`.`Product` (
-  `FloristShop_id` INT NOT NULL,
+  `FloristShop_id` INT,
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `price` DOUBLE NOT NULL,
-  `Ticket_id` INT NOT NULL,
+  `Ticket_id` INT,
   PRIMARY KEY (`id`, `FloristShop_id`),
   CONSTRAINT `fk_Product_FloristShop1`
     FOREIGN KEY (`FloristShop_id`)
