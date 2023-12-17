@@ -1,14 +1,15 @@
-import java.io.IOException;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class Menu {
+    static Connection connection = SQL.connectDB();
 
 
     public static void getMainMenu(ArrayList<FloristShop> floristShops) {
         boolean exit = false;
         FloristShop floristShop;
-        String shopName = "";
+        String shopName;
 
         do {
             try {
@@ -104,7 +105,6 @@ public class Menu {
                                         }
                                     } catch (InputMismatchException e) {
                                         System.out.println("Error: Ingresa un valor válido para el Id.");
-                                        continueLoop = false;
                                     }
                                 } while (!continueLoop);
                             }
@@ -308,7 +308,8 @@ public class Menu {
         String inputName = Input.readString("Introduce el nombre de la floristería: ");
         FloristShop floristShop = Main.findFlowerShop(floristShops, inputName);
         if (floristShop == null) {
-            floristShop = new FloristShop(inputName);
+            SQL.insertFloristShop(connection, inputName);
+            floristShop =SQL.lastFloristShop(connection);
             System.out.println("Creada nueva floristería:");
             System.out.println(floristShop.getName());
             floristShops.add(floristShop);

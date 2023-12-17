@@ -1,8 +1,8 @@
 public class Flower extends Product{
     private String color;
 
-    public Flower(String name, double price, String color) {
-        super(name, price);
+    public Flower(int id, String name, double price, String color) {
+        super(id, name, price);
         this.color = color;
     }
 

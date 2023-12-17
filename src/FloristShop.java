@@ -7,23 +7,20 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class FloristShop {
-    private static int lastId = 0;
     private int id;
     private String name;
     ArrayList<Product> stock;
     ArrayList<Ticket> tickets;
 
-    public FloristShop(String name) {
-        this.id = ++lastId;
+    public FloristShop(int id, String name) {
+        this.id = id;
         this.name = name;
         this.stock = new ArrayList<Product>();
         this.tickets = new ArrayList<Ticket>();
     }
 
-    public FloristShop(String name, ArrayList<Product> stock, ArrayList<Ticket> tickets) {
-        this.name = name;
-        this.stock = stock;
-        this.tickets = tickets;
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -88,7 +85,7 @@ public class FloristShop {
             }
         }
 
-        Tree tree = new Tree(nameTree, priceTree, heightTree);
+        Tree tree = new Tree(id, nameTree, priceTree, heightTree);
         stock.add(tree);
 
         System.out.println("Árbol " + tree.getName() + " añadido con éxito en " + name + ".");
@@ -113,7 +110,7 @@ public class FloristShop {
         }
 
         String colorFlower = Input.readString("Introduce el color de la flor: ");
-        Flower flower = new Flower(nameFlower, priceFlower, colorFlower);
+        Flower flower = new Flower(id, nameFlower, priceFlower, colorFlower);
         stock.add(flower);
 
         System.out.println("Flor " + flower.getName() + " añadido con éxito en " + name + ".");
@@ -142,13 +139,13 @@ public class FloristShop {
             try {
                 switch (Menu.selectMaterialMenu()) {
                     case 1:
-                        Decoration decoration = new Decoration(nameDecoration, priceDecoration, "Madera");
+                        Decoration decoration = new Decoration(id, nameDecoration, priceDecoration, "Madera");
                         System.out.println("Decoración " + decoration.getName() + " añadido con éxito en " + name + ".");
                         stock.add(decoration);
                         exit = true;
                         break;
                     case 2:
-                        decoration = new Decoration(nameDecoration, priceDecoration, "Plástico");
+                        decoration = new Decoration(id, nameDecoration, priceDecoration, "Plástico");
                         System.out.println("Decoración " + decoration.getName() + " añadido con éxito en " + name + ".");
                         stock.add(decoration);
                         exit = true;
@@ -279,7 +276,6 @@ public class FloristShop {
             t.getProducts().forEach((p) -> System.out.println("- " + p.getName()));
             System.out.println("Precio Total de la compra: " + t.getTotalPrice() + " €\n");
         }
-
     }
 
     public double getSalesProfits(ArrayList<Ticket> tickets) {
@@ -293,6 +289,21 @@ public class FloristShop {
                 .filter(p -> product.isInstance(p))
                 .forEach(System.out::println);
 
+    }
+
+    public static Ticket getTicket(ArrayList<Ticket> tickets, int id){
+        Ticket ticket = null;
+        boolean fonundTicket = false;
+        int i =0;
+
+        while (!fonundTicket && i<tickets.size()){
+            if (tickets.get(i).getId() == id){
+                ticket = tickets.get(i);
+                fonundTicket = true;
+            }
+            i++;
+        }
+        return ticket;
     }
 
     @Override
