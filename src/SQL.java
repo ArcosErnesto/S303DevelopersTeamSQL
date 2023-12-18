@@ -125,7 +125,7 @@ public class SQL {
                         FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                         Ticket ticket = FloristShop.getTicket(floristShop.getTickets(), idFloristShop);
                         ticket.getProducts().add(decoration);
-                    } else{
+                    } else {
                         String material = rsProducts.getString("material");
                         Decoration decoration = new Decoration(id, name, price, material);
                         FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
@@ -173,6 +173,90 @@ public class SQL {
             throw new RuntimeException(e);
         }
         return floristShop;
+    }
+
+    public static void insertProduct(Connection connection, String nameTree, double priceTree, int idCategory, int idFloristShop) {
+        String insertProduct = "insert into product (name, price, category_id, floristshop_id) values ('" + nameTree + "', " + priceTree + ", "+idCategory+", "
+                + idFloristShop + ");";
+        Statement st;
+        int result;
+
+        try {
+            st = connection.createStatement();
+            result = st.executeUpdate(insertProduct);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void insertTree(Connection connection, int id, double heightTree) {
+        String insertTree = "insert into tree (product_id, height) values (" + id + ", " + heightTree +")" ;
+        Statement st;
+        int result;
+
+        try {
+            st = connection.createStatement();
+            result = st.executeUpdate(insertTree);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void insertFlower(Connection connection, int id, String flowerColor) {
+        String insertTree = "insert into flower (product_id, color) values (" + id + ", '" + flowerColor +"')" ;
+        Statement st;
+        int result;
+
+        try {
+            st = connection.createStatement();
+            result = st.executeUpdate(insertTree);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void insertDecoration(Connection connection, int id, String material) {
+        String insertTree = "insert into decoration (product_id, material) values (" + id + ", '" + material +"')" ;
+        Statement st;
+        int result;
+
+        try {
+            st = connection.createStatement();
+            result = st.executeUpdate(insertTree);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static Product lastProduct(Connection connection) {
+        String sql = "SELECT * FROM product ORDER BY idproduct DESC LIMIT 1";
+        Product product = null;
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                int id = rs.getInt("idproduct");
+                String name = rs.getString("name");
+                double price = rs.getDouble("price");
+                product = new Product(id, name, price);
+            } else {
+                System.out.println("No hay filas en el conjunto de resultados.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al ejecutar la consulta: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return product;
     }
 
     public static void disconnectDB(Connection connection) {
