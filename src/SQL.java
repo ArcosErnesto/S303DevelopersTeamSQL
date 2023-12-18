@@ -236,6 +236,35 @@ public class SQL {
 
     }
 
+    public static void deleteProduct(Connection connection, int id) {
+        String deleteProduct = "DELETE FROM product WHERE idproduct = '" +id+"'";
+        Statement st;
+
+        try {
+            st = connection.createStatement();
+            st.executeUpdate(deleteProduct);
+        } catch (SQLException e) {
+            System.out.println("Error al ejecutar la eliminación: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static void deleteTree (Connection connection, int id){
+        String deleteTree= "DELETE FROM tree WHERE product_id =" + id;
+        String deleteProduct = "DELETE FROM product WHERE idproduct = " + id;
+        Statement st;
+
+        try {
+            st = connection.createStatement();
+            st.executeUpdate(deleteTree);
+            st.executeUpdate(deleteProduct);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
     public static Product lastProduct(Connection connection) {
         String sql = "SELECT * FROM product ORDER BY idproduct DESC LIMIT 1";
         Product product = null;

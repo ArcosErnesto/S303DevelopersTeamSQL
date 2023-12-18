@@ -82,7 +82,6 @@ public class Menu {
                                 floristShop.printInfoStock(Tree.class);
                                 System.out.println();//
 
-
                                     try {
                                         int idProduct = Input.readInt("Dime el Id del árbol que quieres eliminar: ");
                                         Product producto = floristShop.findProduct(floristShop.getStock(), idProduct);

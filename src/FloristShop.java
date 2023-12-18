@@ -178,6 +178,7 @@ public class FloristShop {
 
     public void removeTree(Product producto) {
         if (producto instanceof Tree) {
+            SQL.deleteProduct(connection, producto.getId());
             stock.remove(producto);
             System.out.println(producto.getName() + " ha sido eliminado Correctamente.");
         } else {
@@ -187,6 +188,7 @@ public class FloristShop {
 
     public void removeFlower(Product producto) {
         if (producto instanceof Flower) {
+            SQL.deleteProduct(connection, producto.getId());
             stock.remove(producto);
             System.out.println(producto.getName() + " ha sido eliminado Correctamente.");
         } else {
@@ -198,6 +200,7 @@ public class FloristShop {
 
     public void removeDecoration(Product producto) {
         if (producto instanceof Decoration) {
+            SQL.deleteProduct(connection, producto.getId());
             stock.remove(producto);
             System.out.println(producto.getName() + " ha sido eliminado Correctamente.");
         } else {
