@@ -4,7 +4,7 @@ USE `florist_shop`;
 --
 -- Host: localhost    Database: florist_shop
 -- ------------------------------------------------------
--- Server version	8.1.0
+-- Server version	8.2.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,9 +26,9 @@ DROP TABLE IF EXISTS `decoration`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `decoration` (
   `product_id` int NOT NULL,
-  `material` varchar(45) COLLATE utf8mb3_spanish_ci NOT NULL,
+  `material` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   PRIMARY KEY (`product_id`),
-  CONSTRAINT `decoration_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`idproduct`)
+  CONSTRAINT `decoration_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`idproduct`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -51,7 +51,7 @@ DROP TABLE IF EXISTS `floristshop`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `floristshop` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb3_spanish_ci NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -75,9 +75,9 @@ DROP TABLE IF EXISTS `flower`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `flower` (
   `product_id` int NOT NULL,
-  `color` varchar(45) COLLATE utf8mb3_spanish_ci NOT NULL,
+  `color` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   PRIMARY KEY (`product_id`),
-  CONSTRAINT `flower_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`idproduct`)
+  CONSTRAINT `flower_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`idproduct`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -100,7 +100,7 @@ DROP TABLE IF EXISTS `product`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product` (
   `idproduct` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb3_spanish_ci NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   `price` double NOT NULL,
   `category_id` int NOT NULL,
   `floristshop_id` int NOT NULL,
@@ -134,7 +134,7 @@ DROP TABLE IF EXISTS `product_category`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `product_category` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) COLLATE utf8mb3_spanish_ci NOT NULL,
+  `name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -188,7 +188,7 @@ CREATE TABLE `tree` (
   `product_id` int NOT NULL,
   `height` double NOT NULL,
   PRIMARY KEY (`product_id`),
-  CONSTRAINT `tree_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`idproduct`)
+  CONSTRAINT `tree_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`idproduct`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -211,4 +211,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-17 19:47:27
+-- Dump completed on 2023-12-18 13:24:32

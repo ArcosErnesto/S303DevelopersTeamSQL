@@ -1,3 +1,0 @@
-TREE,Tree{id: 10, name: pino, price: 5.0, height: 9.0}
-FLOWER,Flower{id=12, name='periwinkle, price=6.0, color=violet}
-TREE,Tree{id: 13, name: palmera, price: 12.0, height: 23.0}
