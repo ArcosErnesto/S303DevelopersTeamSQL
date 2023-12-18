@@ -2,7 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="Data" target="21" />
       <module name="Data.main" target="21" />
       <module name="Data.test" target="21" />
     </bytecodeTargetLevel>

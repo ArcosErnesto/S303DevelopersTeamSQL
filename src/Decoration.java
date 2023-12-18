@@ -1,8 +1,8 @@
 public class Decoration extends Product{
     private String material;
 
-    public Decoration(String name, double price, String material) {
-        super(name, price);
+    public Decoration(int id, String name, double price, String material) {
+        super(id, name, price);
         this.material = material;
     }
 
