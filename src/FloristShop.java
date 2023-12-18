@@ -1,12 +1,9 @@
-import org.w3c.dom.ls.LSOutput;
-
+import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-import javax.management.ObjectInstance;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class FloristShop {
+    Connection connection = Menu.connection;
     private int id;
     private String name;
     ArrayList<Product> stock;
@@ -57,6 +54,7 @@ public class FloristShop {
 
         double priceTree = 0.0;
         boolean validPrice = false;
+        int idCategory = 1;
         while (!validPrice) {
             try {
                 priceTree = Input.readDouble("Introduce el precio del árbol: ");
@@ -84,8 +82,10 @@ public class FloristShop {
                 System.out.println("Por favor, introduce un número válido para la altura.");
             }
         }
-
-        Tree tree = new Tree(id, nameTree, priceTree, heightTree);
+        SQL.insertProduct(connection, nameTree, priceTree, idCategory, id);
+        Product product = SQL.lastProduct(connection);
+        Tree tree = new Tree(product.getId(), product.getName(), product.getPrice(), heightTree);
+        SQL.insertTree(connection, tree.getId(), heightTree);
         stock.add(tree);
 
         System.out.println("Árbol " + tree.getName() + " añadido con éxito en " + name + ".");
@@ -96,6 +96,7 @@ public class FloristShop {
 
         double priceFlower = 0.0;
         boolean validPrice = false;
+        int idCategory = 2;
         while (!validPrice) {
             try {
                 priceFlower = Input.readDouble(("Introduce el precio de la flor: "));
@@ -110,10 +111,14 @@ public class FloristShop {
         }
 
         String colorFlower = Input.readString("Introduce el color de la flor: ");
-        Flower flower = new Flower(id, nameFlower, priceFlower, colorFlower);
+
+        SQL.insertProduct(connection, nameFlower, priceFlower, idCategory, id);
+        Product product = SQL.lastProduct(connection);
+        Flower flower = new Flower(product.getId(), product.getName(), product.getPrice(), colorFlower);
+        SQL.insertFlower(connection, flower.getId(), colorFlower);
         stock.add(flower);
 
-        System.out.println("Flor " + flower.getName() + " añadido con éxito en " + name + ".");
+        System.out.println("Flor " + flower.getName() + " añadida con éxito en " + name + ".");
     }
 
     public void addDecoration(ArrayList<Product> stock) {
@@ -121,6 +126,8 @@ public class FloristShop {
 
         double priceDecoration = 0.0;
         boolean validPrice = false;
+        int idCategory = 3;
+        String decorationMaterial = "";
         while (!validPrice) {
             try {
                 priceDecoration = Input.readDouble(("Introduce el precio de la decoración: "));
@@ -139,15 +146,11 @@ public class FloristShop {
             try {
                 switch (Menu.selectMaterialMenu()) {
                     case 1:
-                        Decoration decoration = new Decoration(id, nameDecoration, priceDecoration, "Madera");
-                        System.out.println("Decoración " + decoration.getName() + " añadido con éxito en " + name + ".");
-                        stock.add(decoration);
+                        decorationMaterial = "Madera";
                         exit = true;
                         break;
                     case 2:
-                        decoration = new Decoration(id, nameDecoration, priceDecoration, "Plástico");
-                        System.out.println("Decoración " + decoration.getName() + " añadido con éxito en " + name + ".");
-                        stock.add(decoration);
+                        decorationMaterial = "Plástico";
                         exit = true;
                         break;
                 }
@@ -156,6 +159,12 @@ public class FloristShop {
             }
         } while (!exit);
 
+        SQL.insertProduct(connection, nameDecoration, priceDecoration, idCategory, id);
+        Product product = SQL.lastProduct(connection);
+        Decoration decoration = new Decoration(product.getId(), product.getName(), product.getPrice(), decorationMaterial);
+        SQL.insertDecoration(connection, decoration.getId(), decorationMaterial);
+        System.out.println("Decoración " + decoration.getName() + " añadida con éxito en " + name + ".");
+        stock.add(decoration);
     }
 
     public void getShopStock(ArrayList<Product> stock) {
@@ -291,13 +300,13 @@ public class FloristShop {
 
     }
 
-    public static Ticket getTicket(ArrayList<Ticket> tickets, int id){
+    public static Ticket getTicket(ArrayList<Ticket> tickets, int id) {
         Ticket ticket = null;
         boolean fonundTicket = false;
-        int i =0;
+        int i = 0;
 
-        while (!fonundTicket && i<tickets.size()){
-            if (tickets.get(i).getId() == id){
+        while (!fonundTicket && i < tickets.size()) {
+            if (tickets.get(i).getId() == id) {
                 ticket = tickets.get(i);
                 fonundTicket = true;
             }

@@ -1,4 +1,4 @@
-public class Tree extends Product{
+public class Tree extends Product {
     private double height;
 
     public Tree(int id, String name, double price, double height) {
@@ -16,6 +16,7 @@ public class Tree extends Product{
 
     @Override
     public String toString() {
-        return "Tree{" + "id: " + super.getId() + ", name: " + super.getName() + ", price: " + super.getPrice() +", height: " + height + '}';
+        return "Tree{" + "id=" + super.getId() + ", name='" + super.getName() + ", price=" + super.getPrice() +", height=" + height + '}';
+
     }
 }
