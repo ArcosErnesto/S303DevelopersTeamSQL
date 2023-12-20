@@ -41,11 +41,10 @@ public class Input{
 		return num;
 	}
 
-	public static String readString(String msj) {
+	public static String readString(String msj) throws InputMismatchException {
 		System.out.print(msj);
-		String text = input().nextLine();
 
-		return text;
+		return input().nextLine();
 	}
 
 	public static void cleanBuffer() {

@@ -5,7 +5,7 @@ public class Main {
     
     public static void main(String[] args) {
 
-        ArrayList<FloristShop> floristShops = new ArrayList<FloristShop>();
+        ArrayList<FloristShop> floristShops = new ArrayList<>();
         Connection connection = Menu.connection;
         SQL.loadFloristShop(connection, floristShops);
         SQL.loadTickets(connection, floristShops);
@@ -39,9 +39,7 @@ public class Main {
     }
 
     public static String nameFloristShop (){
-        String shopName = Input.readString("Introduce el nombre de la floristeria: ");
-
-        return shopName;
+        return Input.readString("Introduce el nombre de la floristeria: ");
     }
 
 }

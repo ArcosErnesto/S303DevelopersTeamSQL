@@ -1,4 +1,0 @@
-TREE,Tree{id: 15, name: christmas tree, price: 78.0, height: 50.0}
-FLOWER,Flower{id=16, name='tulipan, price=8.0, color=yellow}
-FLOWER,Flower{id=17, name='girasol, price=6.0, color=orange}
-DECORATION,Decoration{id=19, name='escritorio, price=27.0, material=madera}

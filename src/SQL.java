@@ -46,16 +46,16 @@ public class SQL {
     }
 
     public static void loadTickets(Connection connection, ArrayList<FloristShop> floristerias) {
-        String loadFlorist = "SELECT * FROM ticket";
+        String loadTickets = "SELECT * FROM ticket";
         Statement st;
         ResultSet rs;
         int id;
         int idFloristShop;
-        Double totalPrice;
+        double totalPrice;
 
         try {
             st = connection.createStatement();
-            rs = st.executeQuery(loadFlorist);
+            rs = st.executeQuery(loadTickets);
             while (rs.next()) {
                 id = rs.getInt("id");
                 idFloristShop = rs.getInt("floristshop_id");
@@ -91,44 +91,35 @@ public class SQL {
                 int idCategory = rsProducts.getInt("category_id");
                 int idFloristShop = rsProducts.getInt("floristshop_id");
                 int idTicket = rsProducts.getInt("ticket_id");
-                //System.out.println(idTicket);
+
                 if (idCategory == 1) {
+                    double height = rsProducts.getDouble("height");
+                    Tree tree = new Tree(id, name, price, height);
+                    FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                     if (idTicket != 0) {
-                        double height = rsProducts.getDouble("height");
-                        Tree tree = new Tree(id, name, price, height);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
-                        Ticket ticket = FloristShop.getTicket(floristShop.getTickets(), idFloristShop);
+                        Ticket ticket = FloristShop.getTicket(floristShop.getTickets(), idTicket);
                         ticket.getProducts().add(tree);
                     } else {
-                        double height = rsProducts.getDouble("height");
-                        Tree tree = new Tree(id, name, price, height);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                         floristShop.getStock().add(tree);
                     }
                 } else if (idCategory == 2) {
+                    String color = rsProducts.getString("color");
+                    Flower flower = new Flower(id, name, price, color);
+                    FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                     if (idTicket != 0) {
-                        String color = rsProducts.getString("color");
-                        Flower flower = new Flower(id, name, price, color);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
-                        Ticket ticket = FloristShop.getTicket(floristShop.getTickets(), idFloristShop);
+                        Ticket ticket = FloristShop.getTicket(floristShop.getTickets(), idTicket);
                         ticket.getProducts().add(flower);
                     } else {
-                        String color = rsProducts.getString("color");
-                        Flower flower = new Flower(id, name, price, color);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                         floristShop.getStock().add(flower);
                     }
                 } else if (idCategory == 3) {
+                    String material = rsProducts.getString("material");
+                    Decoration decoration = new Decoration(id, name, price, material);
+                    FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                     if (idTicket != 0) {
-                        String material = rsProducts.getString("material");
-                        Decoration decoration = new Decoration(id, name, price, material);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
-                        Ticket ticket = FloristShop.getTicket(floristShop.getTickets(), idFloristShop);
+                        Ticket ticket = FloristShop.getTicket(floristShop.getTickets(), idTicket);
                         ticket.getProducts().add(decoration);
                     } else {
-                        String material = rsProducts.getString("material");
-                        Decoration decoration = new Decoration(id, name, price, material);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                         floristShop.getStock().add(decoration);
                     }
                 }
@@ -140,13 +131,12 @@ public class SQL {
     }
 
     public static void insertFloristShop(Connection connection, String name) {
-        String añadir = "insert into floristshop (name) values ('" + name + "');";
+        String insertFloristShop = "insert into floristshop (name) values ('" + name + "');";
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(añadir);
+            st.executeUpdate(insertFloristShop);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -179,11 +169,10 @@ public class SQL {
         String insertProduct = "insert into product (name, price, category_id, floristshop_id) values ('" + nameTree + "', " + priceTree + ", "+idCategory+", "
                 + idFloristShop + ");";
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(insertProduct);
+            st.executeUpdate(insertProduct);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -194,11 +183,10 @@ public class SQL {
     public static void insertTree(Connection connection, int id, double heightTree) {
         String insertTree = "insert into tree (product_id, height) values (" + id + ", " + heightTree +")" ;
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(insertTree);
+            st.executeUpdate(insertTree);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -209,11 +197,10 @@ public class SQL {
     public static void insertFlower(Connection connection, int id, String flowerColor) {
         String insertTree = "insert into flower (product_id, color) values (" + id + ", '" + flowerColor +"')" ;
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(insertTree);
+            st.executeUpdate(insertTree);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -224,11 +211,10 @@ public class SQL {
     public static void insertDecoration(Connection connection, int id, String material) {
         String insertTree = "insert into decoration (product_id, material) values (" + id + ", '" + material +"')" ;
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(insertTree);
+            st.executeUpdate(insertTree);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -245,22 +231,6 @@ public class SQL {
             st.executeUpdate(deleteProduct);
         } catch (SQLException e) {
             System.out.println("Error al ejecutar la eliminación: " + e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
-
-
-    public static void deleteTree (Connection connection, int id){
-        String deleteTree= "DELETE FROM tree WHERE product_id =" + id;
-        String deleteProduct = "DELETE FROM product WHERE idproduct = " + id;
-        Statement st;
-
-        try {
-            st = connection.createStatement();
-            st.executeUpdate(deleteTree);
-            st.executeUpdate(deleteProduct);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
     }
@@ -286,6 +256,67 @@ public class SQL {
             throw new RuntimeException(e);
         }
         return product;
+    }
+
+    public static void insertTicket(Connection connection, int idFloristShop ) {
+        String insertFloristShop = "insert into ticket (floristshop_id) values (" + idFloristShop + ");";
+        Statement st;
+
+        try {
+            st = connection.createStatement();
+            st.executeUpdate(insertFloristShop);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Ticket lastTicket(Connection connection) {
+        String lastTicket = "SELECT * FROM ticket ORDER BY id DESC LIMIT 1";
+        Ticket ticket = null;
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(lastTicket);
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+
+                ticket = new Ticket(id);
+            } else {
+                System.out.println("No hay filas en el conjunto de resultados.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al ejecutar la consulta: " + e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return ticket;
+    }
+
+    public static void setTicketProducts (Connection connection, Product product, Ticket ticket){
+        String setTicketProducts = "UPDATE product SET ticket_id = "+ticket.getId()+" WHERE idproduct = "+product.getId();
+        Statement st;
+
+        try {
+            st = connection.createStatement();
+            st.executeUpdate(setTicketProducts);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void setTicketPrice (Connection connection,Ticket ticket){
+        String setTicketProducts = "UPDATE ticket SET total_price = "+ticket.getTotalPrice()+" WHERE id = "+ticket.getId();
+        Statement st;
+
+        try {
+            st = connection.createStatement();
+            st.executeUpdate(setTicketProducts);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
     public static void disconnectDB(Connection connection) {
