@@ -51,7 +51,7 @@ public class SQL {
         ResultSet rs;
         int id;
         int idFloristShop;
-        Double totalPrice;
+        double totalPrice;
 
         try {
             st = connection.createStatement();
@@ -93,43 +93,33 @@ public class SQL {
                 int idTicket = rsProducts.getInt("ticket_id");
 
                 if (idCategory == 1) {
+                    double height = rsProducts.getDouble("height");
+                    Tree tree = new Tree(id, name, price, height);
+                    FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                     if (idTicket != 0) {
-                        double height = rsProducts.getDouble("height");
-                        Tree tree = new Tree(id, name, price, height);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                         Ticket ticket = FloristShop.getTicket(floristShop.getTickets(), idTicket);
-                        //System.out.println(ticket);
                         ticket.getProducts().add(tree);
                     } else {
-                        double height = rsProducts.getDouble("height");
-                        Tree tree = new Tree(id, name, price, height);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                         floristShop.getStock().add(tree);
                     }
                 } else if (idCategory == 2) {
+                    String color = rsProducts.getString("color");
+                    Flower flower = new Flower(id, name, price, color);
+                    FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                     if (idTicket != 0) {
-                        String color = rsProducts.getString("color");
-                        Flower flower = new Flower(id, name, price, color);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                         Ticket ticket = FloristShop.getTicket(floristShop.getTickets(), idTicket);
                         ticket.getProducts().add(flower);
                     } else {
-                        String color = rsProducts.getString("color");
-                        Flower flower = new Flower(id, name, price, color);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                         floristShop.getStock().add(flower);
                     }
                 } else if (idCategory == 3) {
+                    String material = rsProducts.getString("material");
+                    Decoration decoration = new Decoration(id, name, price, material);
+                    FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                     if (idTicket != 0) {
-                        String material = rsProducts.getString("material");
-                        Decoration decoration = new Decoration(id, name, price, material);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                         Ticket ticket = FloristShop.getTicket(floristShop.getTickets(), idTicket);
                         ticket.getProducts().add(decoration);
                     } else {
-                        String material = rsProducts.getString("material");
-                        Decoration decoration = new Decoration(id, name, price, material);
-                        FloristShop floristShop = Main.findIdFlowerShop(floristerias, idFloristShop);
                         floristShop.getStock().add(decoration);
                     }
                 }
@@ -143,11 +133,10 @@ public class SQL {
     public static void insertFloristShop(Connection connection, String name) {
         String insertFloristShop = "insert into floristshop (name) values ('" + name + "');";
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(insertFloristShop);
+            st.executeUpdate(insertFloristShop);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -180,11 +169,10 @@ public class SQL {
         String insertProduct = "insert into product (name, price, category_id, floristshop_id) values ('" + nameTree + "', " + priceTree + ", "+idCategory+", "
                 + idFloristShop + ");";
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(insertProduct);
+            st.executeUpdate(insertProduct);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -195,11 +183,10 @@ public class SQL {
     public static void insertTree(Connection connection, int id, double heightTree) {
         String insertTree = "insert into tree (product_id, height) values (" + id + ", " + heightTree +")" ;
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(insertTree);
+            st.executeUpdate(insertTree);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -210,11 +197,10 @@ public class SQL {
     public static void insertFlower(Connection connection, int id, String flowerColor) {
         String insertTree = "insert into flower (product_id, color) values (" + id + ", '" + flowerColor +"')" ;
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(insertTree);
+            st.executeUpdate(insertTree);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -225,11 +211,10 @@ public class SQL {
     public static void insertDecoration(Connection connection, int id, String material) {
         String insertTree = "insert into decoration (product_id, material) values (" + id + ", '" + material +"')" ;
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(insertTree);
+            st.executeUpdate(insertTree);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
@@ -276,11 +261,10 @@ public class SQL {
     public static void insertTicket(Connection connection, int idFloristShop ) {
         String insertFloristShop = "insert into ticket (floristshop_id) values (" + idFloristShop + ");";
         Statement st;
-        int result;
 
         try {
             st = connection.createStatement();
-            result = st.executeUpdate(insertFloristShop);
+            st.executeUpdate(insertFloristShop);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);

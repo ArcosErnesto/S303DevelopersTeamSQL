@@ -38,7 +38,7 @@ CREATE TABLE `decoration` (
 
 LOCK TABLES `decoration` WRITE;
 /*!40000 ALTER TABLE `decoration` DISABLE KEYS */;
-INSERT INTO `decoration` VALUES (4,'Plástico'),(8,'Madera');
+INSERT INTO `decoration` VALUES (4,'Plástico'),(8,'Madera'),(17,'Madera'),(18,'Plástico'),(19,'Madera');
 /*!40000 ALTER TABLE `decoration` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,7 +53,7 @@ CREATE TABLE `floristshop` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -62,7 +62,7 @@ CREATE TABLE `floristshop` (
 
 LOCK TABLES `floristshop` WRITE;
 /*!40000 ALTER TABLE `floristshop` DISABLE KEYS */;
-INSERT INTO `floristshop` VALUES (1,'Rosas del Valle'),(2,'Rosas del Bosque'),(3,'Decoflor');
+INSERT INTO `floristshop` VALUES (1,'Rosas del Valle'),(2,'Rosas del Bosque'),(3,'Decoflor'),(4,'FlorArte');
 /*!40000 ALTER TABLE `floristshop` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,7 +87,7 @@ CREATE TABLE `flower` (
 
 LOCK TABLES `flower` WRITE;
 /*!40000 ALTER TABLE `flower` DISABLE KEYS */;
-INSERT INTO `flower` VALUES (1,'Rojo'),(2,'Amarillo'),(3,'Violeta'),(6,'Blanco'),(7,'Violeta'),(10,'Amarillo');
+INSERT INTO `flower` VALUES (1,'Rojo'),(2,'Amarillo'),(3,'Violeta'),(6,'Blanco'),(7,'Violeta'),(10,'Amarillo'),(14,'Blanco'),(15,'Rojo'),(16,'Amarillo');
 /*!40000 ALTER TABLE `flower` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +112,7 @@ CREATE TABLE `product` (
   CONSTRAINT `category_id` FOREIGN KEY (`category_id`) REFERENCES `product_category` (`id`),
   CONSTRAINT `floristshop_id` FOREIGN KEY (`floristshop_id`) REFERENCES `floristshop` (`id`),
   CONSTRAINT `ticket_id` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Rosa Roja',10.99,2,1,NULL),(2,'Girasol Amarillo',8.99,2,1,NULL),(3,'Ramito de Tulipanes',15.99,2,1,NULL),(4,'Adorno Floral',12.5,3,1,NULL),(5,'Árbol de Navidad',29.99,1,1,1),(6,'Bouquet de Rosas Blancas',18.99,2,2,NULL),(7,'Orquídea Morada',24.99,2,2,NULL),(8,'Centro de Mesa Floral',22.5,3,2,2),(9,'Pequeño Árbol Decorativo',14.99,1,2,NULL),(10,'Lirios Amarillos',12.5,2,2,2);
+INSERT INTO `product` VALUES (1,'Rosa Roja',10.99,2,1,5),(2,'Girasol Amarillo',8.99,2,1,NULL),(3,'Ramito de Tulipanes',15.99,2,1,NULL),(4,'Adorno Floral',12.5,3,1,5),(5,'Árbol de Navidad',29.99,1,1,1),(6,'Bouquet de Rosas Blancas',18.99,2,2,NULL),(7,'Orquídea Morada',24.99,2,2,NULL),(8,'Centro de Mesa Floral',22.5,3,2,2),(9,'Pequeño Árbol Decorativo',14.99,1,2,NULL),(10,'Lirios Amarillos',12.5,2,2,2),(11,'Pino',34.99,1,3,4),(12,'Abeto',27.75,1,3,NULL),(13,'Olivo',29.5,1,3,NULL),(14,'Rosa',12.75,2,3,3),(15,'Lirio',14.99,2,3,3),(16,'Tulipán',10.15,2,3,NULL),(17,'Jardinera',29.99,3,3,NULL),(18,'Maceta',5.5,3,3,4),(19,'Caja de Regalo Floral',19.99,3,3,3);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +164,7 @@ CREATE TABLE `ticket` (
   KEY `floristshop_id_idx` (`floristshop_id`),
   KEY `ticket_florist_id_idx` (`floristshop_id`),
   CONSTRAINT `ticket_florist_id` FOREIGN KEY (`floristshop_id`) REFERENCES `floristshop` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,7 +173,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES (1,1,29.99),(2,2,35);
+INSERT INTO `ticket` VALUES (1,1,29.99),(2,2,35),(3,3,47.73),(4,3,40.49),(5,1,23.49);
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,7 +198,7 @@ CREATE TABLE `tree` (
 
 LOCK TABLES `tree` WRITE;
 /*!40000 ALTER TABLE `tree` DISABLE KEYS */;
-INSERT INTO `tree` VALUES (5,1.7),(9,0.5);
+INSERT INTO `tree` VALUES (5,1.7),(9,0.5),(11,1.8),(12,2.2),(13,1.5);
 /*!40000 ALTER TABLE `tree` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -211,4 +211,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-18 13:24:32
+-- Dump completed on 2023-12-20 13:18:02

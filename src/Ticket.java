@@ -1,3 +1,5 @@
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class Ticket {
@@ -6,12 +8,12 @@ public class Ticket {
     private double totalPrice = 0;
 
     public Ticket() {
-        this.products = new ArrayList<Product>();
+        this.products = new ArrayList<>();
     }
 
     public Ticket(int id) {
         this.id = id;
-        this.products = new ArrayList<Product>();
+        this.products = new ArrayList<>();
     }
 
     public int getId() {
@@ -45,6 +47,8 @@ public class Ticket {
     public void calculateFinalPrice() {
         this.totalPrice = this.products.stream().mapToDouble(Product::getPrice).sum();
 
+        BigDecimal roundedPrice = BigDecimal.valueOf(this.totalPrice).setScale(2, BigDecimal.ROUND_HALF_UP);
+        this.totalPrice = roundedPrice.doubleValue();
     }
 
     @Override
