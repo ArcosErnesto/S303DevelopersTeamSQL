@@ -9,7 +9,7 @@ public class Menu {
     public static void getMainMenu(ArrayList<FloristShop> floristShops) {
         boolean exit = false;
         FloristShop floristShop;
-        String shopName;
+        String shopName = "";
         boolean continueLoop;
 
         do {
@@ -166,7 +166,7 @@ public class Menu {
                                         if (producto == null) {
                                             System.out.println("Producto no encontrado con el Id: " + idProduct);
 
-                                        } else {
+                                }else{
 
                                             System.out.println("Estas a punto de eliminar la decoracion: " + producto.getName());
                                             String confirm = Input.readString("¿Estas seguro de eliminarlo? Si/NO ");
