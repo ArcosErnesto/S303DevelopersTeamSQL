@@ -1,10 +1,6 @@
-import org.w3c.dom.ls.LSOutput;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-import javax.management.ObjectInstance;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class FloristShop {
     Connection connection = Menu.connection;
@@ -54,8 +50,6 @@ public class FloristShop {
     }
 
     public void addTree(ArrayList<Product> stock) {
-        String nameTree = Input.readString("Introduce el nombre del árbol: ");
-
         String nameTree = "";
         double priceTree = 0.0;
         boolean validPrice = false;
@@ -107,8 +101,10 @@ public class FloristShop {
     }
 
     public void addFlower(ArrayList<Product> stock) {
-        String nameFlower = Input.readString("Introduce el nombre de la flor: ");
-
+        String nameFlower;
+        String colorFlower;
+        boolean validName = false;
+        boolean validColor = false;
         double priceFlower = 0.0;
         boolean validPrice = false;
         int idCategory = 2;
@@ -134,7 +130,14 @@ public class FloristShop {
             }
         }
 
-        String colorFlower = Input.readString("Introduce el color de la flor: ");
+
+        do{
+            colorFlower = Input.readString("Introduce el color de la flor: ");
+            if (colorFlower.equalsIgnoreCase("")){
+                System.out.println("Opcion no valida");
+            }
+            else validColor = true;
+        }while(!validColor);
 
         SQL.insertProduct(connection, nameFlower, priceFlower, idCategory, id);
         Product product = SQL.lastProduct(connection);
@@ -146,8 +149,8 @@ public class FloristShop {
     }
 
     public void addDecoration(ArrayList<Product> stock) {
-        String nameDecoration = Input.readString("Introduce el nombre de la decoración: ");
-
+        String nameDecoration;
+        boolean validName = false;
         double priceDecoration = 0.0;
         boolean validPrice = false;
         int idCategory = 3;
