@@ -21,7 +21,7 @@ public class Data {
 
 		fh2.getStock().add(new Tree("christmas tree", 78, 50));
 		fh2.getStock().add(new Flower("tulipan", 8, "yellow"));
-		fh2.getStock().add(new Flower("girasol", 6, "orange"));
+		//fh2.getStock().add(new Flower("girasol", 6, "orange"));
 		fh2.getStock().add(new Tree("almendro", 12, 23));
 		fh2.getStock().add(new Decoration("escritorio", 27, "madera"));
 
