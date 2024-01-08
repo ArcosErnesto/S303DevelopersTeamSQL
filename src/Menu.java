@@ -17,6 +17,7 @@ public class Menu {
                 switch (menu()) {
                     case 1 -> createFloristShop(floristShops);
                     case 2 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         if (floristShop == null) {
@@ -26,6 +27,7 @@ public class Menu {
                         }
                     }
                     case 3 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         if (floristShop == null) {
@@ -35,6 +37,7 @@ public class Menu {
                         }
                     }
                     case 4 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         if (floristShop == null) {
@@ -44,6 +47,7 @@ public class Menu {
                         }
                     }
                     case 5 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         if (floristShop == null) {
@@ -53,6 +57,7 @@ public class Menu {
                         }
                     }
                     case 6 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         continueLoop = false;
@@ -99,6 +104,7 @@ public class Menu {
                         }
                     }
                     case 7 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         continueLoop = false;
@@ -143,6 +149,7 @@ public class Menu {
                         }
                     }
                     case 8 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         if (floristShop == null) {
@@ -188,6 +195,7 @@ public class Menu {
                         }
                     }
                     case 9 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         if (floristShop == null) {
@@ -197,6 +205,7 @@ public class Menu {
                         }
                     }
                     case 10 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         if (floristShop == null) {
@@ -206,6 +215,7 @@ public class Menu {
                         }
                     }
                     case 11 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         if (floristShop == null) {
@@ -215,6 +225,7 @@ public class Menu {
                         }
                     }
                     case 12 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         if (floristShop == null) {
@@ -224,6 +235,7 @@ public class Menu {
                         }
                     }
                     case 13 -> {
+                        toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
                         floristShop = Main.findFlowerShop(floristShops, shopName);
                         if (floristShop == null) {
@@ -315,6 +327,11 @@ public class Menu {
         } while (option < 1 || option > 2);
 
         return option;
+    }
+
+    public static void toWatchFloristShop(ArrayList<FloristShop> floristShops){
+        System.out.println("--- Floristerias disponibles ---");
+        floristShops.forEach(floristShop -> System.out.println(floristShop.getName()));
     }
 
 }

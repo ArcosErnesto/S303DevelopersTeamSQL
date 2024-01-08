@@ -7,7 +7,7 @@ public class SQL {
         Connection connection;
         String host = "jdbc:mysql://localhost/";
         String user = "root";
-        String pass = "Calavera33";
+        String pass = "root";
         String bd = "florist_shop";
 
         System.out.println("Conectando...");
