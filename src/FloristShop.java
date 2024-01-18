@@ -50,11 +50,20 @@ public class FloristShop {
     }
 
     public void addTree(ArrayList<Product> stock) {
-        String nameTree = Input.readString("Introduce el nombre del árbol: ");
-
+        String nameTree = "";
         double priceTree = 0.0;
         boolean validPrice = false;
         int idCategory = 1;
+        boolean validName = false;
+        do{
+            nameTree = Input.readString("Introduce el nombre del árbol: ");
+            if (nameTree.equalsIgnoreCase("")){
+                System.out.println("Opcion no valida");
+            }
+            else validName = true;
+        }while(!validName);
+
+
         while (!validPrice) {
             try {
                 priceTree = Input.readDouble("Introduce el precio del árbol: ");
@@ -92,11 +101,22 @@ public class FloristShop {
     }
 
     public void addFlower(ArrayList<Product> stock) {
-        String nameFlower = Input.readString("Introduce el nombre de la flor: ");
-
+        String nameFlower;
+        String colorFlower;
+        boolean validName = false;
+        boolean validColor = false;
         double priceFlower = 0.0;
         boolean validPrice = false;
         int idCategory = 2;
+
+        do{
+            nameFlower = Input.readString("Introduce el nombre de la flor: ");
+            if (nameFlower.equalsIgnoreCase("")){
+                System.out.println("Opcion no valida");
+            }
+            else validName = true;
+        }while(!validName);
+
         while (!validPrice) {
             try {
                 priceFlower = Input.readDouble(("Introduce el precio de la flor: "));
@@ -110,7 +130,14 @@ public class FloristShop {
             }
         }
 
-        String colorFlower = Input.readString("Introduce el color de la flor: ");
+
+        do{
+            colorFlower = Input.readString("Introduce el color de la flor: ");
+            if (colorFlower.equalsIgnoreCase("")){
+                System.out.println("Opcion no valida");
+            }
+            else validColor = true;
+        }while(!validColor);
 
         SQL.insertProduct(connection, nameFlower, priceFlower, idCategory, id);
         Product product = SQL.lastProduct(connection);
@@ -122,12 +149,20 @@ public class FloristShop {
     }
 
     public void addDecoration(ArrayList<Product> stock) {
-        String nameDecoration = Input.readString("Introduce el nombre de la decoración: ");
-
+        String nameDecoration;
+        boolean validName = false;
         double priceDecoration = 0.0;
         boolean validPrice = false;
         int idCategory = 3;
         String decorationMaterial = "";
+        do{
+            nameDecoration = Input.readString("Introduce el nombre de la decoración: ");
+            if (nameDecoration.equalsIgnoreCase("")){
+                System.out.println("Opcion no valida");
+            }
+            else validName = true;
+        }while(!validName);
+
         while (!validPrice) {
             try {
                 priceDecoration = Input.readDouble(("Introduce el precio de la decoración: "));
@@ -171,7 +206,7 @@ public class FloristShop {
         if (stock.isEmpty()) {
             System.out.println("No hay stock en la floristería " + name + ".");
         } else {
-            System.out.println("El stock disponible en la floristería " + name + " es:");
+            System.out.println("\nEl stock disponible en la floristería " + name + " es:\n");
             stock.forEach(System.out::println);
         }
     }
@@ -238,7 +273,7 @@ public class FloristShop {
 
     public void createPurchaseTicket(ArrayList<Product> stock) {
         byte option;
-        String yesNo;
+        String yesNo = "";
         boolean endPurchase = false;
         Ticket ticket;
 
@@ -280,9 +315,11 @@ public class FloristShop {
             SQL.setTicketPrice(connection, ticket);
             addTicket(ticket);
 
-        } else {
-            System.out.println("La floristería no tiene stock en estos momentos.\n");
+        }else{
+            System.out.println("Actualmente, la floristería no dispone de productos en stock.");
+            System.out.println("Lamentamos las molestias. Vuelva otro día, gracias.");
         }
+
     }
 
     public void getPurchaseTickets(ArrayList<Ticket> tickets) {
@@ -295,6 +332,7 @@ public class FloristShop {
                 System.out.println("Precio Total de la compra: " + t.getTotalPrice() + " €\n");
             }
         }
+
     }
 
     public double getSalesProfits(ArrayList<Ticket> tickets) {
