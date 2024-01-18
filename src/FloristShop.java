@@ -275,27 +275,31 @@ public class FloristShop {
         byte option;
         String yesNo = "";
         boolean endPurchase = false;
-        Ticket ticket;
+        Ticket ticket = null;
 
         if (!stock.isEmpty()) {
-            SQL.insertTicket(connection, id);
-            ticket = SQL.lastTicket(connection);
             do {
                 System.out.println("Productos en stock: ");
                 for (int i = 1; i <= stock.size(); i++) {
                     System.out.println(i + ". " + stock.get(i - 1).getName() + " " + stock.get(i - 1).getPrice() + " €");
                 }
+                System.out.println("Cancelar compra:");
+                System.out.println("0. Salir.");
                 do {
                     option = Input.readByte("Qué objeto quieres comprar?: ");
-                    if (option < 1 || option > stock.size()) {
+                    if (option < 0 || option > stock.size()) {
                         System.out.println("Opcion no valida.\n");
                     }
-                } while (option < 1 || option > stock.size());
-                Product product = stock.get(option - 1);
-                ticket.addProduct(product);
-                stock.remove(product);
-                SQL.setTicketProducts(connection, product, ticket);
-                System.out.println("Producto añadido.\n");
+                } while (option < 0 || option > stock.size());
+                if (option > 0) {
+                    SQL.insertTicket(connection, id);
+                    ticket = SQL.lastTicket(connection);
+                    Product product = stock.get(option - 1);
+                    ticket.addProduct(product);
+                    stock.remove(product);
+                    SQL.setTicketProducts(connection, product, ticket);
+                    System.out.println("Producto añadido.\n");
+                }
                 if (stock.isEmpty()) {
                     System.out.println("No hay mas productos para comprar.");
                     endPurchase = true;
@@ -310,16 +314,16 @@ public class FloristShop {
                 }
             } while (!endPurchase);
 
-            ticket.calculateFinalPrice();
-            System.out.println("Precio total ticket: " + ticket.getTotalPrice() + " €");
-            SQL.setTicketPrice(connection, ticket);
-            addTicket(ticket);
-
-        }else{
+            if (ticket != null) {
+                ticket.calculateFinalPrice();
+                System.out.println("Precio total ticket: " + ticket.getTotalPrice() + " €");
+                SQL.setTicketPrice(connection, ticket);
+                addTicket(ticket);
+            }
+        } else {
             System.out.println("Actualmente, la floristería no dispone de productos en stock.");
             System.out.println("Lamentamos las molestias. Vuelva otro día, gracias.");
         }
-
     }
 
     public void getPurchaseTickets(ArrayList<Ticket> tickets) {
