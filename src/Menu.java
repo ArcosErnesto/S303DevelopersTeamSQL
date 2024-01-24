@@ -15,7 +15,10 @@ public class Menu {
         do {
             try {
                 switch (menu()) {
-                    case 1 -> createFloristShop(floristShops);
+                    case 1 -> {
+                        toWatchFloristShop(floristShops);
+                        createFloristShop(floristShops);
+                    }
                     case 2 -> {
                         toWatchFloristShop(floristShops);
                         shopName = Main.nameFloristShop();
@@ -173,7 +176,7 @@ public class Menu {
                                         if (producto == null) {
                                             System.out.println("Producto no encontrado con el Id: " + idProduct);
 
-                                }else{
+                                        } else {
 
                                             System.out.println("Estas a punto de eliminar la decoracion: " + producto.getName());
                                             String confirm = Input.readString("¿Estas seguro de eliminarlo? Si/NO ");
@@ -292,13 +295,13 @@ public class Menu {
 
     public static void createFloristShop(ArrayList<FloristShop> floristShops) {
         String inputName = Input.readString("Introduce el nombre de la floristería: ");
-        if(inputName.equalsIgnoreCase("")){
+        if (inputName.equalsIgnoreCase("")) {
             System.out.println("Nombre no válido.");
-        } else{
+        } else {
             FloristShop floristShop = Main.findFlowerShop(floristShops, inputName);
             if (floristShop == null) {
                 SQL.insertFloristShop(connection, inputName);
-                floristShop =SQL.lastFloristShop(connection);
+                floristShop = SQL.lastFloristShop(connection);
                 System.out.println("Creada nueva floristería:");
                 System.out.println(floristShop.getName());
                 floristShops.add(floristShop);
@@ -329,7 +332,7 @@ public class Menu {
         return option;
     }
 
-    public static void toWatchFloristShop(ArrayList<FloristShop> floristShops){
+    public static void toWatchFloristShop(ArrayList<FloristShop> floristShops) {
         System.out.println("--- Floristerias disponibles ---");
         floristShops.forEach(floristShop -> System.out.println(floristShop.getName()));
     }
